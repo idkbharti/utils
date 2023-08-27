@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./Navbar";
+import QrGenrator from "./QrGenrator";
+import UrlShortner from "./UrlShortner"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-black w-[100vw] h-[100vh]">
+      <Navbar/>
+     <Router basename="/">
+      <Routes>
+        {/* <Route path="/"  element={<UrlShortner/>} /> */}
+        <Route path="/" exact element={<QrGenrator/>} />
+      </Routes>
+    </Router> 
     </div>
   );
 }
