@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { RxDownload, RxShare1 } from "react-icons/rx";
+import { RxDownload, RxDragHandleVertical, RxShare1 } from "react-icons/rx";
 import { ImPrinter } from "react-icons/im";
 import { useDropzone } from "react-dropzone";
 
 function QrGenrator() {
+  useEffect(()=>{
+    window.scrollTo(0, document.body.scrollHeight);
+  },[document.body.scrollHeight])
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -65,27 +68,52 @@ function QrGenrator() {
     { name: "Text", placeholder: "Text" },
     { name: "Wifi", placeholder: "Wifi" },
     { name: "Email", placeholder: "Email ID" },
-    { name: "SMS", placeholder: "Phone Number" },
+    // { name: "SMS", placeholder: "Phone Number" },
     { name: "Image", placeholder: "image-url" },
     { name: "PDF", placeholder: "pdf-url" },
     { name: "Bitcoin", placeholder: "bitcoin-address" },
   ];
 
+   function handleVaidaton(){
+    if (!url) {
+      alert(`please enter ${QRtype.placeholder}`);
+      setShowl(false);
+      setResponse("");
+      setUrl("")
+    }else if(QRtype.name=="Url"&& !url.includes(".")){
+      alert("enter valid url")
+      setUrl("")
+    }else if(QRtype.name=="Email"&& !url.includes("@")){
+      alert("enter valid email address")
+      setUrl("")
+    }else if(QRtype.name=="Text"&& !url.includes(" ")){
+      alert("enter meaningful text")
+      setUrl("")
+    }else if(QRtype.name=="Bitcoin"&& !url.includes(" ")&& 24<url.length<35){
+      alert("enter valid bitcoin adress")
+      setUrl("")
+    }else{
+      handlePostRequest()
+      setUrl("")
+    }
+}
+
   const handlePostRequest = async () => {
     setShowl(true);
     setResponse("");
 
-    if (!url) {
-      alert("please fill all the feilds");
-      setShowl(false);
-      setResponse("");
-    }
+    
     if (QRtype.name === "Wifi") {
-      setUrl({
-        ssid: ssid,
-        password: pwd,
-        isHidden: isHidden,
-      });
+      if(!ssid && !pwd){
+         alert("plaese enter ssid and password")
+      }else{
+        setUrl({
+          ssid: ssid,
+          password: pwd,
+          isHidden: isHidden,
+        });
+      }
+      
     }
     try {
       const response = await axios.post("https://url-self.vercel.app/qr/", {
@@ -252,7 +280,7 @@ function QrGenrator() {
 
           <div className="mt-[27px]">
             <button
-              onClick={handlePostRequest}
+              onClick={handleVaidaton}
               className="text-white bg-green-500 border-0 py-2  px-8  focus:outline-none hover:bg-green-600 rounded text-lg"
             >
               Generate QR
@@ -325,9 +353,12 @@ function QrGenrator() {
 
       {QRtype.name === "Image" || QRtype.name === "PDF" ? (
         <>
-          <div className="flex flex-col items-center p-8">
+          <div className="flex flex-col items-center mt-[-5px] p-8">
             <div className="mb-4">
-              <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl text-center font-semibold">
+                or
+              </h2>
+              <h2 className="text-xl font-semibold">
                 Drag & Drop or Browse Files
               </h2>
             </div>
@@ -407,7 +438,7 @@ function QrGenrator() {
         )}
 
         {response && 
-        <div class="flex justify-center flex-col  items-center w-full">
+        <div class="flex justify-center flex-col mb-10 items-center w-full">
         <div dangerouslySetInnerHTML={{ __html: response }} />
         <div className="mt-6 w-full flex justify-center items-center">
       <div>
