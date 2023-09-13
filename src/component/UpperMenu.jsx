@@ -6,13 +6,14 @@ function UpperMenu({QRtype,setQRtype,setResponse,setUrl}) {
         { name: "Text", placeholder: "Text" },
         { name: "Wifi", placeholder: "Wifi" },
         { name: "Email", placeholder: "Email ID" },
-        { name: "SMS", placeholder: "Phone Number" },
+        // { name: "SMS", placeholder: "Phone Number" },
         { name: "Image", placeholder: "image-url" },
         { name: "PDF", placeholder: "pdf-url" },
         { name: "Bitcoin", placeholder: "bitcoin-address" },
+
       ];
   return (
-    <div className="w-full h-12">
+    <div className="w-full h-8">
     <ul className="flex flex-column justify-center items-center gap-x-10 cursor-pointer ">
       {types.map((ele, i) => {
         return (
