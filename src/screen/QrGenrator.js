@@ -1,10 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-<<<<<<< HEAD:src/screen/QrGenrator.js
-=======
-import { RxDownload, RxDragHandleVertical, RxShare1 } from "react-icons/rx";
-import { ImPrinter } from "react-icons/im";
->>>>>>> b393d547854b24367207019419e7ca37bdc158bb:src/QrGenrator.js
 import { useDropzone } from "react-dropzone";
 import ParaCard from "../component/ParaCard";
 import OutputDiv from "../component/OutputDiv";
@@ -65,46 +60,7 @@ function QrGenrator() {
     },
   });
 
-<<<<<<< HEAD:src/screen/QrGenrator.js
 const handlePostRequest = async () => {
-=======
-  const types = [
-    { name: "Url", placeholder: "Url" },
-    { name: "Text", placeholder: "Text" },
-    { name: "Wifi", placeholder: "Wifi" },
-    { name: "Email", placeholder: "Email ID" },
-    // { name: "SMS", placeholder: "Phone Number" },
-    { name: "Image", placeholder: "image-url" },
-    { name: "PDF", placeholder: "pdf-url" },
-    { name: "Bitcoin", placeholder: "bitcoin-address" },
-  ];
-
-   function handleVaidaton(){
-    if (!url) {
-      alert(`please enter ${QRtype.placeholder}`);
-      setShowl(false);
-      setResponse("");
-      setUrl("")
-    }else if(QRtype.name=="Url"&& !url.includes(".")){
-      alert("enter valid url")
-      setUrl("")
-    }else if(QRtype.name=="Email"&& !url.includes("@")){
-      alert("enter valid email address")
-      setUrl("")
-    }else if(QRtype.name=="Text"&& !url.includes(" ")){
-      alert("enter meaningful text")
-      setUrl("")
-    }else if(QRtype.name=="Bitcoin"&& !url.includes(" ")&& 24<url.length<35){
-      alert("enter valid bitcoin adress")
-      setUrl("")
-    }else{
-      handlePostRequest()
-      setUrl("")
-    }
-}
-
-  const handlePostRequest = async () => {
->>>>>>> b393d547854b24367207019419e7ca37bdc158bb:src/QrGenrator.js
     setShowl(true);
     setResponse("");
 
@@ -338,57 +294,7 @@ const handlePostRequest = async () => {
         </>
       ) : null}
 
-<<<<<<< HEAD:src/screen/QrGenrator.js
        <OutputDiv response={response} showl={showl} imageRef={imageRef}/>
-=======
-      {/* output div ---------------------------------------------------------------------------------------------------- */}
-      <div className="w-full mt-10 flex-col justify-center items-center">
-        {showl && (
-          <div class="flex justify-center items-center w-full">
-            <div class="loader"></div>
-          </div>
-        )}
-
-        {response && 
-        <div class="flex justify-center flex-col mb-10 items-center w-full">
-        <div dangerouslySetInnerHTML={{ __html: response }} />
-        <div className="mt-6 w-full flex justify-center items-center">
-      <div>
-      <button
-          onClick={handleDownload}
-          className="text-white  bg-green-500 border-0 py-4 px-4 focus:outline-none hover:bg-green-600 rounded-full text-lg"
-        >
-          <RxDownload />
-        </button>
-      </div>
-
-       <div>
-       <button
-          onClick={handlePrint}
-          className="text-white bg-green-500 border-0 py-4 px-4 ml-4 focus:outline-none hover:bg-green-600 rounded-full text-lg"
-        >
-          <ImPrinter />
-        </button>
-       </div>
-
-       <div>
-       <button
-          onClick={handleShare}
-          className="text-white bg-green-500 border-0 py-4 px-4 ml-4 focus:outline-none hover:bg-green-600 rounded-full text-lg"
-        >
-          <RxShare1 />
-        </button>
-       </div>
-      </div>
-      </div>
-        }
-      </div>
-      {/* ---------------------------------------------- */}
-    
-    
-    
-    
->>>>>>> b393d547854b24367207019419e7ca37bdc158bb:src/QrGenrator.js
     </section>
   );
 }
