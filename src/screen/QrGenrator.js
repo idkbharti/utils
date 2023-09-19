@@ -26,7 +26,6 @@ function QrGenrator() {
   const uploadFiles = () => {
     setShowl(true);
     setResponse("");
-
     // Simulate uploading with a timeout
     // setUploading(true);
     // let progress = 0;
@@ -42,8 +41,8 @@ function QrGenrator() {
     //   }
     // }, 500);
     try {
-      const formData = new FormData();
-      formData.append("file", selectedFiles[0]);
+    const formData = new FormData();
+    formData.append("file", selectedFiles[0]);
       axios
         .post("https://url-self.vercel.app/qr/upload", formData, {
           headers: {
@@ -51,16 +50,13 @@ function QrGenrator() {
           },
         })
         .then((response) => setResponse(response.data));
-      setShowl(false);
     } catch (error) {
-      setShowl(false);
-      setResponse("");
-      setSelectedFiles([]);
+       console.log(error)
     }
     setShowl(false);
+    setResponse("");
+    setSelectedFiles([]);
   };
-
-
 
   const handleVaidaton = () => {
     handlePostRequest();
@@ -85,15 +81,12 @@ function QrGenrator() {
         type: QRtype.name,
         content: url,
       });
-      setShowl(false);
-
       setResponse(response.data);
-      console.log(response, QRtype, url);
     } catch (error) {
-      setShowl(false);
-      setResponse("");
+      console.log(error)
     }
     setShowl(false);
+    setResponse("");
   };
 
   const imageRef = useRef(null);
@@ -105,6 +98,7 @@ function QrGenrator() {
         QRtype={QRtype}
         setQRtype={setQRtype}
         setUrl={setUrl}
+        setSelectedFiles={setSelectedFiles}
       />
       <ParaCard />
       {!response &&       

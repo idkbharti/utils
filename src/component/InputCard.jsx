@@ -139,7 +139,7 @@ function InputCard({
             {selectedFiles.length === 0 && (
               <>
                 <div className="mb-4">
-                  <h2 className="text-2xl font-semibold">OR</h2>
+                  <h2 className="text-2xl mt-4 font-semibold">OR</h2>
                 </div>
                 <div
                   {...getRootProps()}
@@ -199,10 +199,7 @@ function InputCard({
                     ))}
                   </ul>
                 </div>
-                {showl ? (
-                  <Loading />
-                ) : (
-                  <>
+
                     {selectedFiles.length > 0 && (
                       <div className="mt-4">
                         <button
@@ -216,8 +213,6 @@ function InputCard({
                         </button>
                       </div>
                     )}
-                  </>
-                )}
               </>
             )}
           </div>

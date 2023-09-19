@@ -19,16 +19,16 @@ function ParaCard() {
       return () => clearInterval(interval);
     }, []);
   return (
-    <div
-    className="container px-5 py-8 mx-auto"
+<div
+    className="container px-6 py-8 mx-auto"
   >
-    <div className="flex flex-col text-center w-full mb-12">
-      <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-500">
+    <div className="flex flex-col text-center">
+      <h1 className="md:text-3xl text-2xl font-medium title-font mb-4 text-gray-500">
         {text}
         <span className={textColor}>{visibleText}</span>
       </h1>
 
-      <p className="lg:w-2/3 mx-auto leading-relaxed text-lg slide-in">
+      <p className="lg:w-2/3 mx-auto px-2 leading-relaxed text-center md:text-lg text-sm slide-in">
         "Did you know that QR codes were first created in Japan by a Toyota
         subsidiary to track vehicles during manufacturing? Fast forward to
         today, and QR codes have evolved into versatile gems of information
