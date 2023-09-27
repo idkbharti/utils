@@ -1,63 +1,65 @@
-import React from "react";
+import React, { useRef } from "react";
 import { RxDownload, RxShare1 } from "react-icons/rx";
 import { ImPrinter } from "react-icons/im";
 import Loading from "./Loading";
 
 function OutputDiv({ response, showl, imageRef }) {
-  const handleDownload = async () => {
-    if (imageRef.current) {
-      try {
-        const response = await fetch(imageRef.current.src);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "image.jpg";
-        link.click();
+  const svgContent = '<svg width="100" height="100"><circle cx="50" cy="50" r="40" /></svg>';
 
-        window.URL.revokeObjectURL(url);
-      } catch (error) {
-        console.error("Error downloading image:", error);
-      }
-    }
+  const handleDownload = () => {
+    // Create a data URI from the SVG content
+    const dataUri = `data:image/svg+xml,${encodeURIComponent(svgContent)}`;
+
+    // Create an anchor element for downloading
+    const link = document.createElement('a');
+    link.href = dataUri;
+    link.download = 'image.svg';
+
+    // Trigger a click event to initiate the download
+    link.click();
   };
-
+  
   const handlePrint = () => {
-    if (imageRef.current) {
-      const printWindow = window.open("", "_blank");
-      printWindow.document.write(
-        `<img src="${imageRef.current.src}" style="max-width: 100%;" />`
-      );
-      printWindow.document.close();
-      printWindow.print();
-    }
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(response);
+    printWindow.document.close();
+    printWindow.print();
   };
 
   const handleShare = () => {
     if (navigator.share) {
+      // Construct a blob from the SVG content
+      const svgBlob = new Blob([response], { type: "image/svg+xml" });
+      
+      // Create a URL for the blob
+      const svgBlobUrl = URL.createObjectURL(svgBlob);
+  
       navigator
         .share({
-          title: "Shared Image",
-          text: "Check out this image!",
-          url: imageRef.current?.src,
+          title: "Shared Content",
+          text: "Check out this content!",
+          url: svgBlobUrl,
         })
         .then(() => {
-          console.log("Image shared successfully");
+          console.log("Content shared successfully");
         })
         .catch((error) => {
-          console.error("Error sharing image:", error);
+          console.error("Error sharing content:", error);
         });
+    } else {
+      console.log("Web Share API is not supported in this browser.");
     }
   };
+  
   return (
     <div className="w-full mt-4 flex-col justify-center items-center">
       {showl && <Loading />}
 
       {response && (
-        <div class="flex justify-center flex-col  mb-4 items-center w-full">
+        <div className="flex justify-center flex-col  mb-4 items-center w-full">
           <div dangerouslySetInnerHTML={{ __html: response }} />
-          {/* <div className="mt-6 w-full flex justify-center items-center">
+          <div className="mt-6 w-full flex justify-center items-center">
             <div>
               <button
                 onClick={handleDownload}
@@ -84,7 +86,7 @@ function OutputDiv({ response, showl, imageRef }) {
                 <RxShare1 />
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       )}
     </div>

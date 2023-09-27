@@ -1,92 +1,72 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-import ParaCard from "../component/ParaCard";
-import OutputDiv from "../component/OutputDiv";
-import UpperMenu from "../component/UpperMenu";
-import Loading from "../component/Loading";
-import InputCard from "../component/InputCard";
+import ParaCard from "../components/ParaCard";
+import OutputDiv from "../components/OutputDiv";
+import UpperMenu from "../components/UpperMenu";
+import InputCard from "../components/InputCard";
 
 function QrGenrator() {
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [document.body.scrollHeight]);
+  
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [url, setUrl] = useState("");
   const [response, setResponse] = useState("");
   const [showl, setShowl] = useState(false);
-  // const [selectedSize, setSelectedSize] = useState(600);
   const [QRtype, setQRtype] = useState({ name: "Url", placeholder: "Url" });
   const [ssid, setSsid] = useState("");
   const [pwd, setPwd] = useState("");
   const [isHidden, setIsHidden] = useState(false);
 
-  const uploadFiles = () => {
+  const uploadFiles = async () => {
+    try {
     setShowl(true);
     setResponse("");
-    // Simulate uploading with a timeout
-    // setUploading(true);
-    // let progress = 0;
-    // const interval = setInterval(() => {
-    //   progress += 10;
-    //   setUploadProgress(progress);
-    //   if (progress >= 100) {
-    //     clearInterval(interval);
-    //     setUploading(false);
-    //     setShowl(true);
-    //     setResponse("");
-
-    //   }
-    // }, 500);
-    try {
     const formData = new FormData();
     formData.append("file", selectedFiles[0]);
-      axios
-        .post("https://url-self.vercel.app/qr/upload", formData, {
+    const response = await axios.post("https://url-self.vercel.app/qr/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((response) => setResponse(response.data));
+    setResponse(response.data);
+     
     } catch (error) {
        console.log(error)
     }
     setShowl(false);
-    setResponse("");
     setSelectedFiles([]);
   };
 
   const handleVaidaton = () => {
-    handlePostRequest();
+    if(QRtype.name==="Wifi"){
+      setUrl({ssid,password: pwd,isHidden});
+    }
+    handlePostRequest()
   };
 
   const handlePostRequest = async () => {
-    setShowl(true);
-    setResponse("");
-    if (QRtype.name === "Wifi") {
-      if (!ssid && !pwd) {
-        alert("plaese enter ssid and password");
-      } else {
-        setUrl({
-          ssid: ssid,
-          password: pwd,
-          isHidden: isHidden,
-        });
-      }
-    }
+    // console.log(url)
+   if(!url){
+   alert("please fill all the feild")
+   }else{
     try {
+    // console.log("api requesting...in try block")
+      setShowl(true);
+      setResponse("");
       const response = await axios.post("https://url-self.vercel.app/qr/", {
         type: QRtype.name,
         content: url,
       });
+      // console.log(response.data)
       setResponse(response.data);
     } catch (error) {
       console.log(error)
     }
-    setShowl(false);
-    setResponse("");
+    setShowl(false);   }
   };
 
   const imageRef = useRef(null);

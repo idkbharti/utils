@@ -1,5 +1,4 @@
 import React from "react";
-import Loading from "./Loading";
 import { useDropzone } from "react-dropzone";
 
 function InputCard({
@@ -36,7 +35,7 @@ function InputCard({
         <div className="w-full flex  flex-col items-center justify-center">
           <div className="w-80">
             <label
-              for="full-name"
+              htmlFor="full-name"
               className="leading-8 tracking-widest text-sm text-gray-600"
             >
               Enter your{" "}
@@ -75,7 +74,7 @@ function InputCard({
         <div className="w-full flex flex-col items-center justify-center">
           <div className="w-80">
             <label
-              for="full-name"
+              htmlFor="full-name"
               className="leading-8 tracking-widest  text-sm text-gray-600"
             >
               Enter your <span className="text-green-500">SSID</span> here!
@@ -91,7 +90,7 @@ function InputCard({
 
           <div className="w-80">
             <label
-              for="full-name"
+              htmlFor="full-name"
               className="leading-8 tracking-widest  text-sm text-gray-600"
             >
               Paste your <span className="text-green-500">Password</span> here!
@@ -105,17 +104,17 @@ function InputCard({
             />
           </div>
           {QRtype.name === "Wifi" && (
-            <div class="w-80 flex items-center justify-center mt-2">
+            <div className="w-80 flex items-center justify-center mt-2">
               <input
                 onClick={() => setIsHidden(!isHidden)}
                 id="link-checkbox"
                 type="checkbox"
                 value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label
-                for="link-checkbox"
-                class="ml-2 text-xs font-normal text-gray-900 dark:text-gray-300"
+                htmlFor="link-checkbox"
+                className="ml-2 text-xs font-normal text-gray-900 dark:text-gray-300"
               >
                 Check if Wifi SSID is hidden.
               </label>
@@ -124,7 +123,7 @@ function InputCard({
 
           <div className="mt-[27px]">
             <button
-              onClick={handlePostRequest}
+              onClick={handleVaidaton}
               className="text-white bg-green-500 border-0 py-2  px-8  focus:outline-none hover:bg-green-600 rounded text-lg"
             >
               Generate QR

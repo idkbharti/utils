@@ -1,8 +1,8 @@
-import Navbar from "./component/Navbar";
+import Navbar from "./components/Navbar";
 import QrGenrator from "./screen/QrGenrator";
 import UrlShortner from "./screen/UrlShortner"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Footer from "./component/Footer"
+import Footer from "./components/Footer"
 
 function App() {
   return (
