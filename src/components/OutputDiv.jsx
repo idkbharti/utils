@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { RxDownload, RxShare1 } from "react-icons/rx";
 import { ImPrinter } from "react-icons/im";
 import Loading from "./Loading";

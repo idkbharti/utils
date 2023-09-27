@@ -5,6 +5,7 @@ import ParaCard from "../components/ParaCard";
 import OutputDiv from "../components/OutputDiv";
 import UpperMenu from "../components/UpperMenu";
 import InputCard from "../components/InputCard";
+import toast from "react-hot-toast";
 
 function QrGenrator() {
   useEffect(() => {
@@ -35,7 +36,7 @@ function QrGenrator() {
     setResponse(response.data);
      
     } catch (error) {
-       console.log(error)
+       toast.error(error)
     }
     setShowl(false);
     setSelectedFiles([]);
@@ -51,7 +52,7 @@ function QrGenrator() {
   const handlePostRequest = async () => {
     // console.log(url)
    if(!url){
-   alert("please fill all the feild")
+   toast.error(`${QRtype.placeholder} feild can't be empty`)
    }else{
     try {
     // console.log("api requesting...in try block")
@@ -64,7 +65,7 @@ function QrGenrator() {
       // console.log(response.data)
       setResponse(response.data);
     } catch (error) {
-      console.log(error)
+      toast.error(error)
     }
     setShowl(false);   }
   };
